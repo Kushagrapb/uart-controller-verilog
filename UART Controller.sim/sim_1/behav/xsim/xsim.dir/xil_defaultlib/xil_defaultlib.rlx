@@ -1,0 +1,11 @@
+0.6
+2019.2
+Nov  6 2019
+21:57:16
+E:/Verilog/UART Controller.sim/sim_1/behav/xsim/glbl.v,1573089660,verilog,,,,glbl,,,,,,,,
+E:/Verilog/sync_fifo.v,1779034590,verilog,,E:/Verilog/uart_baud_gen.v,,sync_fifo,,,,,,,,
+E:/Verilog/tb_uart_controller.v,1779034546,verilog,,,,tb_uart_controller,,,,,,,,
+E:/Verilog/uart_baud_gen.v,1779034586,verilog,,E:/Verilog/uart_controller.v,,uart_baud_gen,,,,,,,,
+E:/Verilog/uart_controller.v,1779034190,verilog,,E:/Verilog/uart_rx.v,,uart_controller,,,,,,,,
+E:/Verilog/uart_rx.v,1779034581,verilog,,E:/Verilog/uart_tx.v,,uart_rx,,,,,,,,
+E:/Verilog/uart_tx.v,1779034577,verilog,,E:/Verilog/tb_uart_controller.v,,uart_tx,,,,,,,,

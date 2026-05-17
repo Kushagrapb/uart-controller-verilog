@@ -1,0 +1,791 @@
+$date
+   Sun May 17 21:51:01 2026
+$end
+$version
+  2019.2
+$end
+$timescale
+  1ps
+$end
+$scope module tb_uart_controller $end
+$var reg 1 ! clk $end
+$var reg 1 " rst_n $end
+$var reg 1 # tx_wr_en $end
+$var reg 8 $ tx_wr_data [7:0] $end
+$var wire 1 % tx_full $end
+$var wire 1 & tx_empty $end
+$var reg 1 ' rx_rd_en $end
+$var wire 8 ( rx_rd_data [7:0] $end
+$var wire 1 ) rx_empty $end
+$var wire 1 * rx_full $end
+$var wire 1 + parity_error $end
+$var wire 1 , framing_error $end
+$var wire 1 - rx_overflow $end
+$var wire 1 . uart_tx $end
+$var reg 1 / uart_rx_override $end
+$var reg 1 0 use_override $end
+$var wire 1 1 uart_rx $end
+$var integer 32 2 test_num $end
+$var reg 8 3 received [7:0] $end
+$var integer 32 4 pass_cnt $end
+$var integer 32 5 fail_cnt $end
+$var parameter 32 6 CLK_FREQ [31:0] $end
+$var parameter 32 7 BAUD_RATE [31:0] $end
+$var parameter 32 8 DATA_BITS [31:0] $end
+$var parameter 32 9 PARITY [31:0] $end
+$var parameter 32 : STOP_BITS [31:0] $end
+$var parameter 32 ; FIFO_DEPTH [31:0] $end
+$var parameter 32 < CLK_PERIOD [31:0] $end
+$var parameter 32 = BAUD_PERIOD [31:0] $end
+$scope module dut $end
+$var wire 1 > clk $end
+$var wire 1 ? rst_n $end
+$var wire 1 @ tx_wr_en $end
+$var wire 8 A tx_wr_data [7:0] $end
+$var wire 1 % tx_full $end
+$var wire 1 & tx_empty $end
+$var wire 1 B rx_rd_en $end
+$var wire 8 ( rx_rd_data [7:0] $end
+$var wire 1 ) rx_empty $end
+$var wire 1 * rx_full $end
+$var wire 1 + parity_error $end
+$var wire 1 , framing_error $end
+$var wire 1 - rx_overflow $end
+$var wire 1 1 uart_rx $end
+$var wire 1 . uart_tx $end
+$var wire 1 C baud_tick $end
+$var wire 8 D tx_fifo_dout [7:0] $end
+$var wire 1 E tx_fifo_empty $end
+$var wire 1 F tx_rd_en $end
+$var wire 1 G tx_busy $end
+$var wire 1 H tx_done $end
+$var wire 8 I rx_data_raw [7:0] $end
+$var wire 1 J rx_done_raw $end
+$var wire 1 K rx_parity_err $end
+$var wire 1 L rx_frame_err $end
+$var wire 1 M rx_fifo_full $end
+$var reg 1 N parity_err_r $end
+$var reg 1 O framing_err_r $end
+$var reg 1 P rx_overflow_r $end
+$var parameter 32 Q CLK_FREQ [31:0] $end
+$var parameter 32 R BAUD_RATE [31:0] $end
+$var parameter 32 S DATA_BITS [31:0] $end
+$var parameter 32 T PARITY [31:0] $end
+$var parameter 32 U STOP_BITS [31:0] $end
+$var parameter 32 V FIFO_DEPTH [31:0] $end
+$scope module u_baud_gen $end
+$var wire 1 > clk $end
+$var wire 1 ? rst_n $end
+$var reg 1 W baud_tick $end
+$var reg 5 X counter [4:0] $end
+$var parameter 32 Y CLK_FREQ [31:0] $end
+$var parameter 32 Z BAUD_RATE [31:0] $end
+$var parameter 0 [ DIVISOR $end
+$var parameter 0 \ CTR_WIDTH $end
+$upscope $end
+$scope module u_tx_fifo $end
+$var wire 1 > clk $end
+$var wire 1 ? rst_n $end
+$var wire 1 @ wr_en $end
+$var wire 8 A wr_data [7:0] $end
+$var wire 1 F rd_en $end
+$var reg 8 ] rd_data [7:0] $end
+$var wire 1 % full $end
+$var wire 1 E empty $end
+$var reg 5 ^ wr_ptr [4:0] $end
+$var reg 5 _ rd_ptr [4:0] $end
+$var wire 4 ` wr_addr [3:0] $end
+$var wire 4 a rd_addr [3:0] $end
+$var parameter 32 b DATA_WIDTH [31:0] $end
+$var parameter 32 c DEPTH [31:0] $end
+$var parameter 32 d ADDR_WIDTH [31:0] $end
+$upscope $end
+$scope module u_uart_tx $end
+$var wire 1 > clk $end
+$var wire 1 ? rst_n $end
+$var wire 1 C baud_tick $end
+$var wire 1 F tx_start $end
+$var wire 8 D tx_data [7:0] $end
+$var reg 1 e tx $end
+$var reg 1 f tx_busy $end
+$var reg 1 g tx_done $end
+$var reg 3 h state [2:0] $end
+$var reg 3 i next_state [2:0] $end
+$var reg 4 j tick_cnt [3:0] $end
+$var reg 4 k bit_cnt [3:0] $end
+$var reg 8 l shift_reg [7:0] $end
+$var reg 1 m parity_bit_val $end
+$var reg 2 n stop_cnt [1:0] $end
+$var parameter 32 o DATA_BITS [31:0] $end
+$var parameter 32 p PARITY [31:0] $end
+$var parameter 32 q STOP_BITS [31:0] $end
+$var parameter 3 r IDLE [2:0] $end
+$var parameter 3 s START [2:0] $end
+$var parameter 3 t DATA [2:0] $end
+$var parameter 3 u PARITY_BIT [2:0] $end
+$var parameter 3 v STOP [2:0] $end
+$scope function parity_calc $end
+$var reg 1 w parity_calc $end
+$var reg 8 x data [7:0] $end
+$var reg 2 y parity_type [1:0] $end
+$var integer 32 z i $end
+$var reg 1 { p $end
+$upscope $end
+$upscope $end
+$scope module u_uart_rx $end
+$var wire 1 > clk $end
+$var wire 1 ? rst_n $end
+$var wire 1 C baud_tick $end
+$var wire 1 1 rx $end
+$var reg 8 | rx_data [7:0] $end
+$var reg 1 } rx_done $end
+$var reg 1 ~ parity_error $end
+$var reg 1 !! framing_error $end
+$var reg 3 "! state [2:0] $end
+$var reg 4 #! tick_cnt [3:0] $end
+$var reg 4 $! bit_cnt [3:0] $end
+$var reg 8 %! shift_reg [7:0] $end
+$var reg 1 &! sample_7 $end
+$var reg 1 '! sample_8 $end
+$var reg 1 (! sample_9 $end
+$var reg 1 )! voted_bit $end
+$var reg 1 *! rx_sync1 $end
+$var reg 1 +! rx_sync2 $end
+$var reg 1 ,! received_parity_bit $end
+$var parameter 32 -! DATA_BITS [31:0] $end
+$var parameter 32 .! PARITY [31:0] $end
+$var parameter 32 /! STOP_BITS [31:0] $end
+$var parameter 3 0! IDLE [2:0] $end
+$var parameter 3 1! START [2:0] $end
+$var parameter 3 2! DATA [2:0] $end
+$var parameter 3 3! PARITY_BIT [2:0] $end
+$var parameter 3 4! STOP [2:0] $end
+$scope function parity_check $end
+$var reg 1 w parity_check $end
+$var reg 8 x data [7:0] $end
+$var reg 1 5! received_parity $end
+$var reg 2 6! parity_type [1:0] $end
+$var integer 32 7! i $end
+$var reg 1 8! p $end
+$upscope $end
+$upscope $end
+$scope module u_rx_fifo $end
+$var wire 1 > clk $end
+$var wire 1 ? rst_n $end
+$var wire 1 9! wr_en $end
+$var wire 8 I wr_data [7:0] $end
+$var wire 1 B rd_en $end
+$var reg 8 :! rd_data [7:0] $end
+$var wire 1 M full $end
+$var wire 1 ) empty $end
+$var reg 5 ;! wr_ptr [4:0] $end
+$var reg 5 <! rd_ptr [4:0] $end
+$var wire 4 =! wr_addr [3:0] $end
+$var wire 4 >! rd_addr [3:0] $end
+$var parameter 32 ?! DATA_WIDTH [31:0] $end
+$var parameter 32 @! DEPTH [31:0] $end
+$var parameter 32 A! ADDR_WIDTH [31:0] $end
+$upscope $end
+$upscope $end
+$scope begin burst_test $end
+$var integer 32 B! j $end
+$var reg 8 C! rx_val [7:0] $end
+$upscope $end
+$scope begin boundary $end
+$var reg 8 D! rv [7:0] $end
+$upscope $end
+$scope task write_tx $end
+$var reg 8 E! data [7:0] $end
+$upscope $end
+$scope task read_rx $end
+$var reg 8 F! data [7:0] $end
+$upscope $end
+$scope task inject_uart_frame $end
+$var reg 8 G! data [7:0] $end
+$var reg 1 H! bad_parity $end
+$var integer 32 I! i $end
+$var reg 1 J! computed_parity $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0!
+x!!
+0"
+bx "!
+0#
+bx #!
+b0 $
+bx $!
+x%
+bx %!
+x&
+x&!
+0'
+x'!
+bx (
+x(!
+x)
+x)!
+x*
+x*!
+x+
+x+!
+x,
+x,!
+x-
+b1000 -!
+x.
+b10 .!
+1/
+b1 /!
+00
+b0 0!
+x1
+b1 1!
+bx 2
+b10 2!
+bx 3
+b11 3!
+b0 4
+b100 4!
+b0 5
+05!
+b10111110101111000010000000 6
+b0 6!
+b11100001000000000 7
+b0 7!
+b1000 8
+08!
+b10 9
+x9!
+b1 :
+bx :!
+b10000 ;
+bx ;!
+b10100 <
+bx <!
+b10000111101000 =
+bx =!
+0>
+bx >!
+0?
+b1000 ?!
+0@
+b10000 @!
+b0 A
+b100 A!
+0B
+bx B!
+xC
+bx C!
+bx D
+bx D!
+xE
+bx E!
+xF
+bx F!
+xG
+bx G!
+xH
+xH!
+bx I
+bx I!
+xJ
+xJ!
+xK
+xL
+xM
+xN
+xO
+xP
+b10111110101111000010000000 Q
+b11100001000000000 R
+b1000 S
+b10 T
+b1 U
+b10000 V
+xW
+bx X
+b10111110101111000010000000 Y
+b11100001000000000 Z
+b11011 [
+b101 \
+bx ]
+bx ^
+bx _
+bx `
+bx a
+b1000 b
+b10000 c
+b100 d
+xe
+xf
+xg
+bx h
+bx i
+bx j
+bx k
+bx l
+xm
+bx n
+b1000 o
+b10 p
+b1 q
+b0 r
+b1 s
+b10 t
+b11 u
+b100 v
+0w
+b0 x
+b0 y
+b0 z
+0{
+bx |
+x}
+x~
+$end
+#10000
+1!
+0!!
+b0 "!
+b0 #!
+b0 $!
+0%
+b0 %!
+1&
+0&!
+0'!
+b0 (
+0(!
+1)
+0)!
+0*
+0+
+0,
+0,!
+0-
+1.
+11
+09!
+b0 :!
+b0 ;!
+b0 <!
+b0 =!
+1>
+b0 >!
+0C
+b0 D
+1E
+0F
+0G
+0H
+b0 I
+0J
+0K
+0L
+0M
+0N
+0O
+0P
+0W
+b0 X
+b0 ]
+b0 ^
+b0 _
+b0 `
+b0 a
+1e
+0f
+0g
+b0 h
+b0 i
+b0 j
+b0 k
+b0 l
+0m
+b0 n
+b0 |
+0}
+0~
+#20000
+0!
+0>
+#30000
+1!
+1*!
+1>
+#40000
+0!
+0>
+#50000
+1!
+1+!
+1>
+#60000
+0!
+0>
+#70000
+1!
+1>
+#80000
+0!
+0>
+#90000
+1!
+1>
+#100000
+0!
+0>
+#110000
+1!
+1>
+#120000
+0!
+0>
+#130000
+1!
+1>
+#140000
+0!
+0>
+#150000
+1!
+1>
+#160000
+0!
+0>
+#170000
+1!
+1>
+#180000
+0!
+0>
+#190000
+1!
+1"
+1>
+1?
+b1 X
+#200000
+0!
+0>
+#210000
+1!
+1>
+b10 X
+#220000
+0!
+0>
+#230000
+1!
+1>
+b11 X
+#240000
+0!
+0>
+#250000
+1!
+1>
+b100 X
+#260000
+0!
+0>
+#270000
+1!
+1>
+b101 X
+#280000
+0!
+0>
+#290000
+1!
+1>
+b10100101 E!
+b110 X
+#300000
+0!
+0>
+#310000
+1!
+1#
+b10100101 $
+1>
+1@
+b10100101 A
+b111 X
+#320000
+0!
+0>
+#330000
+1!
+0#
+0&
+1>
+0@
+0E
+1F
+b1000 X
+b1 ^
+b1 `
+#340000
+0!
+0>
+#350000
+1!
+1&
+1>
+b10100101 D
+1E
+0F
+1G
+b1001 X
+b10100101 ]
+b1 _
+b1 a
+1f
+b1 i
+#360000
+0!
+0>
+#370000
+1!
+1>
+0G
+b1010 X
+0f
+b1 h
+#380000
+0!
+0>
+#390000
+1!
+0.
+01
+1>
+b1011 X
+0e
+#400000
+0!
+0>
+#410000
+1!
+0*!
+1>
+b1100 X
+#420000
+0!
+0>
+#430000
+1!
+0+!
+1>
+b1101 X
+#440000
+0!
+0>
+#450000
+1!
+b1 "!
+1>
+b1110 X
+#460000
+0!
+0>
+#470000
+1!
+1>
+b1111 X
+#480000
+0!
+0>
+#490000
+1!
+1>
+b10000 X
+#500000
+0!
+0>
+#510000
+1!
+1>
+b10001 X
+#520000
+0!
+0>
+#530000
+1!
+1>
+b10010 X
+#540000
+0!
+0>
+#550000
+1!
+1>
+b10011 X
+#560000
+0!
+0>
+#570000
+1!
+1>
+b10100 X
+#580000
+0!
+0>
+#590000
+1!
+1>
+b10101 X
+#600000
+0!
+0>
+#610000
+1!
+1>
+b10110 X
+#620000
+0!
+0>
+#630000
+1!
+1>
+b10111 X
+#640000
+0!
+0>
+#650000
+1!
+1>
+b11000 X
+#660000
+0!
+0>
+#670000
+1!
+1>
+b11001 X
+#680000
+0!
+0>
+#690000
+1!
+1>
+b11010 X
+#700000
+0!
+0>
+#710000
+1!
+1>
+1C
+1W
+b0 X
+#720000
+0!
+0>
+#730000
+1!
+b1 #!
+1>
+0C
+0W
+b1 X
+b1 j
+#740000
+0!
+0>
+#750000
+1!
+1>
+b10 X
+#760000
+0!
+0>
+#770000
+1!
+1>
+b11 X
+#780000
+0!
+0>
+#790000
+1!
+1>
+b100 X
+#800000
+0!
+0>
+#810000
+1!
+1>
+b101 X
+#820000
+0!
+0>
+#830000
+1!
+1>
+b110 X
+#840000
+0!
+0>
+#850000
+1!
+1>
+b111 X
+#860000
+0!
+0>
+#870000
+1!
+1>
+b1000 X
+#880000
+0!
+0>
+#890000
+1!
+1>
+b1001 X
+#900000
+0!
+0>
+#910000
+1!
+1>
+b1010 X
+#920000
+0!
+0>
+#930000
+1!
+1>
+b1011 X
+#940000
+0!
+0>
+#950000
+1!
+1>
+b1100 X
+#960000
+0!
+0>
+#970000
+1!
+1>
+b1101 X
+#980000
+0!
+0>
+#990000
+1!
+1>
+b1110 X
+#1000000
+0!
+0>

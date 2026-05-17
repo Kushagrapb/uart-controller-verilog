@@ -1,0 +1,24 @@
+Vivado Simulator 2019.2
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: E:/Vivado/2019.2/bin/unwrapped/win64.o/xelab.exe -wto 52d49cb440e247479ff5ed36a2fcbfb0 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_uart_controller_behav xil_defaultlib.tb_uart_controller xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "E:/Verilog/uart_controller.v" Line 22. Module uart_controller(PARITY=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "E:/Verilog/uart_baud_gen.v" Line 11. Module uart_baud_gen_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "E:/Verilog/sync_fifo.v" Line 11. Module sync_fifo_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "E:/Verilog/uart_tx.v" Line 15. Module uart_tx(PARITY=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "E:/Verilog/uart_rx.v" Line 14. Module uart_rx(PARITY=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "E:/Verilog/sync_fifo.v" Line 11. Module sync_fifo_default doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_baud_gen_default
+Compiling module xil_defaultlib.sync_fifo_default
+Compiling module xil_defaultlib.uart_tx(PARITY=2)
+Compiling module xil_defaultlib.uart_rx(PARITY=2)
+Compiling module xil_defaultlib.uart_controller(PARITY=2)
+Compiling module xil_defaultlib.tb_uart_controller
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_uart_controller_behav

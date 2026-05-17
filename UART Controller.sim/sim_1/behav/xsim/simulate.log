@@ -1,0 +1,9 @@
+Vivado Simulator 2019.2
+Time resolution is 1 ps
+=======================================================
+     UART Controller Testbench START
+     CLK=50MHz  BAUD=115200  DATA=8  PARITY=2
+=======================================================
+
+--- TEST 1: Single Byte Loopback ---
+[330000] TX WRITE: 0xa5

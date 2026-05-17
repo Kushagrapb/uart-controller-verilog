@@ -1,0 +1,14 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/Verilog/sync_fifo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sync_fifo
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/Verilog/uart_baud_gen.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_baud_gen
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/Verilog/uart_controller.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_controller
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/Verilog/uart_rx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/Verilog/uart_tx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/Verilog/tb_uart_controller.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_uart_controller
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/Verilog/UART Controller.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
