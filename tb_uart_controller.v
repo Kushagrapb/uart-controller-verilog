@@ -3,19 +3,11 @@
 // Description: Self-checking testbench for the UART controller
 //              Tests: loopback (TX->RX), parity error injection,
 //                     framing error injection, FIFO fill/drain
-// Simulation : Use ModelSim / Icarus Verilog / Vivado xsim
-//   iverilog -o tb_uart tb_uart_controller.v uart_controller.v
-//             uart_tx.v uart_rx.v uart_baud_gen.v sync_fifo.v
-//   vvp tb_uart
 // =============================================================================
 
 `timescale 1ns/1ps
 
 module tb_uart_controller;
-
-    // -----------------------------------------------------------------------
-    // DUT Parameters
-    // -----------------------------------------------------------------------
     localparam CLK_FREQ   = 50_000_000;
     localparam BAUD_RATE  = 115_200;
     localparam DATA_BITS  = 8;
@@ -26,17 +18,12 @@ module tb_uart_controller;
     localparam CLK_PERIOD  = 20;        // 50 MHz -> 20 ns period
     localparam BAUD_PERIOD = 1_000_000_000 / BAUD_RATE; // ns per baud period
 
-    // -----------------------------------------------------------------------
-    // DUT signals
-    // -----------------------------------------------------------------------
     reg  clk, rst_n;
 
-    // TX path
     reg  tx_wr_en;
     reg  [DATA_BITS-1:0] tx_wr_data;
     wire tx_full, tx_empty;
 
-    // RX path
     reg  rx_rd_en;
     wire [DATA_BITS-1:0] rx_rd_data;
     wire rx_empty, rx_full;
@@ -50,9 +37,6 @@ module tb_uart_controller;
     reg  use_override;
     wire uart_rx = use_override ? uart_rx_override : uart_tx;
 
-    // -----------------------------------------------------------------------
-    // DUT Instantiation
-    // -----------------------------------------------------------------------
     uart_controller #(
         .CLK_FREQ   (CLK_FREQ),
         .BAUD_RATE  (BAUD_RATE),
@@ -78,15 +62,9 @@ module tb_uart_controller;
         .uart_tx      (uart_tx)
     );
 
-    // -----------------------------------------------------------------------
-    // Clock generation
-    // -----------------------------------------------------------------------
     initial clk = 0;
     always #(CLK_PERIOD/2) clk = ~clk;
 
-    // -----------------------------------------------------------------------
-    // Task: Write one byte to TX FIFO
-    // -----------------------------------------------------------------------
     task write_tx;
         input [DATA_BITS-1:0] data;
         begin
@@ -99,9 +77,6 @@ module tb_uart_controller;
         end
     endtask
 
-    // -----------------------------------------------------------------------
-    // Task: Wait until RX FIFO has data, then read it
-    // -----------------------------------------------------------------------
     task read_rx;
         output [DATA_BITS-1:0] data;
         begin
@@ -115,10 +90,6 @@ module tb_uart_controller;
         end
     endtask
 
-    // -----------------------------------------------------------------------
-    // Task: Inject a raw UART frame on uart_rx (for error testing)
-    // Parity bit can be deliberately wrong
-    // -----------------------------------------------------------------------
     task inject_uart_frame;
         input [DATA_BITS-1:0] data;
         input                 bad_parity;
@@ -155,19 +126,16 @@ module tb_uart_controller;
         end
     endtask
 
-    // -----------------------------------------------------------------------
-    // Test sequence
-    // -----------------------------------------------------------------------
     integer test_num;
     reg [DATA_BITS-1:0] received;
     integer pass_cnt, fail_cnt;
 
     initial begin
-        $display("=======================================================");
+        $display("==========================================");
         $display("     UART Controller Testbench START");
         $display("     CLK=%0dMHz  BAUD=%0d  DATA=%0d  PARITY=%0d",
                  CLK_FREQ/1_000_000, BAUD_RATE, DATA_BITS, PARITY);
-        $display("=======================================================");
+        $display("=============================================");
 
         // Initialize
         rst_n            = 0;
@@ -184,9 +152,6 @@ module tb_uart_controller;
         rst_n = 1;
         repeat(5) @(posedge clk);
 
-        // -------------------------------------------------------------------
-        // TEST 1: Single byte loopback (TX->RX)
-        // -------------------------------------------------------------------
         $display("\n--- TEST 1: Single Byte Loopback ---");
         write_tx(8'hA5);
         read_rx(received);
@@ -201,9 +166,6 @@ module tb_uart_controller;
 
         repeat(20) @(posedge clk);
 
-        // -------------------------------------------------------------------
-        // TEST 2: Multi-byte burst (0x00-0x07)
-        // -------------------------------------------------------------------
         $display("\n--- TEST 2: Multi-byte Burst (8 bytes) ---");
         begin : burst_test
             integer j;
@@ -224,9 +186,6 @@ module tb_uart_controller;
 
         repeat(20) @(posedge clk);
 
-        // -------------------------------------------------------------------
-        // TEST 3: Parity error injection
-        // -------------------------------------------------------------------
         $display("\n--- TEST 3: Parity Error Injection ---");
         inject_uart_frame(8'h55, 1'b1); // Bad parity
         repeat(3) @(posedge clk);
@@ -240,9 +199,6 @@ module tb_uart_controller;
 
         repeat(50) @(posedge clk);
 
-        // -------------------------------------------------------------------
-        // TEST 4: All zeros and all ones
-        // -------------------------------------------------------------------
         $display("\n--- TEST 4: Boundary Values (0x00, 0xFF) ---");
         begin : boundary
             reg [DATA_BITS-1:0] rv;
@@ -269,12 +225,9 @@ module tb_uart_controller;
 
         repeat(20) @(posedge clk);
 
-        // -------------------------------------------------------------------
-        // Summary
-        // -------------------------------------------------------------------
-        $display("\n=======================================================");
+        $display("\n====================================================");
         $display("  RESULTS: %0d PASSED | %0d FAILED", pass_cnt, fail_cnt);
-        $display("=======================================================");
+        $display("=====================================================");
 
         if (fail_cnt == 0)
             $display("  ALL TESTS PASSED");
@@ -284,18 +237,12 @@ module tb_uart_controller;
         $finish;
     end
 
-    // -----------------------------------------------------------------------
-    // Timeout watchdog
-    // -----------------------------------------------------------------------
     initial begin
         #(BAUD_PERIOD * 200);
         $display("WATCHDOG TIMEOUT - Simulation did not complete in time");
         $finish;
     end
 
-    // -----------------------------------------------------------------------
-    // Waveform dump (for GTKWave or Vivado)
-    // -----------------------------------------------------------------------
     initial begin
         $dumpfile("uart_sim.vcd");
         $dumpvars(0, tb_uart_controller);

@@ -9,14 +9,6 @@
 //   - 16-deep TX and RX FIFOs
 //   - Configurable baud rate via parameter
 //   - Status flags: tx_full, rx_empty, rx_error flags
-//
-// Parameters:
-//   CLK_FREQ   - System clock frequency in Hz     (default: 50 MHz)
-//   BAUD_RATE  - Target baud rate                 (default: 115200)
-//   DATA_BITS  - UART data bits (5-9)             (default: 8)
-//   PARITY     - 0=None, 1=Odd, 2=Even            (default: 0)
-//   STOP_BITS  - 1 or 2 stop bits                 (default: 1)
-//   FIFO_DEPTH - TX/RX FIFO depth (power of 2)   (default: 16)
 // =============================================================================
 
 module uart_controller #(
@@ -36,10 +28,10 @@ module uart_controller #(
     output wire             tx_full,            // TX FIFO full
     output wire             tx_empty,           // TX FIFO empty
 
-    input  wire             rx_rd_en,           // Read from RX FIFO
-    output wire [DATA_BITS-1:0] rx_rd_data,     // Received data output
-    output wire             rx_empty,           // RX FIFO empty
-    output wire             rx_full,            // RX FIFO full
+    input  wire             rx_rd_en,            
+    output wire [DATA_BITS-1:0] rx_rd_data,      
+    output wire             rx_empty,            
+    output wire             rx_full,            
 
     // Status & Error flags
     output wire             parity_error,       // Parity error from RX
@@ -50,10 +42,7 @@ module uart_controller #(
     input  wire             uart_rx,
     output wire             uart_tx
 );
-
-    // -----------------------------------------------------------------------
-    // Internal wires
-    // -----------------------------------------------------------------------
+    
     wire baud_tick;
 
     // TX FIFO <-> TX core
@@ -69,9 +58,9 @@ module uart_controller #(
     wire                 rx_parity_err;
     wire                 rx_frame_err;
 
-    // -----------------------------------------------------------------------
+    
     // Baud Rate Generator
-    // -----------------------------------------------------------------------
+
     uart_baud_gen #(
         .CLK_FREQ  (CLK_FREQ),
         .BAUD_RATE (BAUD_RATE)
@@ -81,9 +70,8 @@ module uart_controller #(
         .baud_tick (baud_tick)
     );
 
-    // -----------------------------------------------------------------------
     // TX FIFO
-    // -----------------------------------------------------------------------
+    
     sync_fifo #(
         .DATA_WIDTH (DATA_BITS),
         .DEPTH      (FIFO_DEPTH)
@@ -104,9 +92,8 @@ module uart_controller #(
     // Read from TX FIFO when TX core is free and FIFO has data
     assign tx_rd_en = (!tx_busy) && (!tx_fifo_empty);
 
-    // -----------------------------------------------------------------------
     // UART TX Core
-    // -----------------------------------------------------------------------
+    
     uart_tx #(
         .DATA_BITS (DATA_BITS),
         .PARITY    (PARITY),
@@ -122,9 +109,8 @@ module uart_controller #(
         .tx_done   (tx_done)
     );
 
-    // -----------------------------------------------------------------------
     // UART RX Core
-    // -----------------------------------------------------------------------
+    
     uart_rx #(
         .DATA_BITS (DATA_BITS),
         .PARITY    (PARITY),
@@ -140,9 +126,8 @@ module uart_controller #(
         .framing_error (rx_frame_err)
     );
 
-    // -----------------------------------------------------------------------
     // RX FIFO
-    // -----------------------------------------------------------------------
+    
     wire rx_fifo_full;
 
     sync_fifo #(
@@ -161,9 +146,7 @@ module uart_controller #(
 
     assign rx_full = rx_fifo_full;
 
-    // -----------------------------------------------------------------------
-    // Error flag registers
-    // -----------------------------------------------------------------------
+    
     reg parity_err_r, framing_err_r, rx_overflow_r;
 
     always @(posedge clk) begin
