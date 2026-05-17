@@ -2,10 +2,6 @@
 // Module      : sync_fifo
 // Description : Synchronous FIFO (single clock domain)
 //               Used as TX and RX buffers in the UART controller
-//
-// Parameters:
-//   DATA_WIDTH - Width of data bus       (default: 8)
-//   DEPTH      - FIFO depth (power of 2) (default: 16)
 // =============================================================================
 
 module sync_fifo #(
